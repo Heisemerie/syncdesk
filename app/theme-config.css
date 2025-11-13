@@ -1,0 +1,4 @@
+.radix-themes {
+  --default-font-family: var(--font-geist-mono);
+  --default-font-family: var(--font-geist-sans);
+}
