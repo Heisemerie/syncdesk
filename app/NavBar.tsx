@@ -1,7 +1,12 @@
+"use client";
+
+import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ImBug } from "react-icons/im";
 
 const NavBar = () => {
+  const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Issues", href: "/issues" },
@@ -17,7 +22,10 @@ const NavBar = () => {
           <Link
             key={link.href}
             href={link.href}
-            className="text-zinc-50 hover:text-zinc-400 transition-colors"
+            className={clsx(" hover:text-zinc-200 transition-colors", {
+              "text-zinc-400": currentPath !== link.href,
+              "text-zinc-50": currentPath === link.href,
+            })}
           >
             {link.label}
           </Link>
