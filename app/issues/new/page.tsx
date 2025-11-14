@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import { Button, Callout, TextField } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
 import { useForm, Controller } from "react-hook-form";
@@ -21,7 +21,7 @@ const NewIssuePage = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IssueData>({
     resolver: zodResolver(createIssueSchema),
   });
@@ -59,7 +59,7 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        <Button>Submit New Issue</Button>
+        <Button loading={isSubmitting}>Submit New Issue</Button>
       </form>
     </div>
   );
