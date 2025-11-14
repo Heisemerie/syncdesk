@@ -33,7 +33,10 @@ const IssueForm = ({ issue }: Props) => {
 
   const onSubmit = async (data: IssueData) => {
     try {
-      await axios.post("/api/issues", data);
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+      } else await axios.post("/api/issues", data);
+
       router.push("/issues");
     } catch (error) {
       setError("An unexpected error occurred");
@@ -67,7 +70,9 @@ const IssueForm = ({ issue }: Props) => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
-        <Button loading={isSubmitting}>Submit New Issue</Button>
+        <Button loading={isSubmitting}>
+          {issue ? "Update Issue" : "Submit New Issue"}
+        </Button>
       </form>
     </div>
   );
