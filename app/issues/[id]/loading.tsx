@@ -1,7 +1,20 @@
-import React from "react";
+import { Flex, Card, Skeleton } from "@radix-ui/themes";
 
 const loading = () => {
-  return <div>Loading...</div>;
+  return (
+    <div className="max-w-2xl">
+      <Skeleton height="20px" />
+      <Flex className="gap-3 my-2">
+        <Skeleton width="4rem" height="20px" />
+        <Skeleton width="8rem" height="20px" />
+      </Flex>
+      <Card className="prose dark:prose-invert">
+        <Skeleton height="20px" className="my-2" />
+        <Skeleton height="20px" className="my-2" />
+        <Skeleton height="20px" className="my-2" />
+      </Card>
+    </div>
+  );
 };
 
 export default loading;
