@@ -1,5 +1,4 @@
 "use client";
-
 import { Button, Callout, TextField } from "@radix-ui/themes";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
@@ -10,7 +9,7 @@ import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { zodResolver } from "@hookform/resolvers/zod";
 import createIssueSchema, { IssueData } from "@/app/validationSchemas";
-import ErrorMessage from "@/app/components/ErrorMessage";
+import { ErrorMessage } from "@/app/components";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
