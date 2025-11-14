@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const createIssueSchema = z.object({
+const IssueSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }).max(255),
   description: z.string().min(1, { message: "Description is required" }),
 });
-export type IssueData = z.infer<typeof createIssueSchema>;
+export type IssueData = z.infer<typeof IssueSchema>;
 
-export default createIssueSchema;
+export default IssueSchema;
