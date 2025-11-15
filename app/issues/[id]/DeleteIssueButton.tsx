@@ -8,12 +8,15 @@ import { useState } from "react";
 const DeleteIssueButton = ({ id }: { id: string }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const onDelete = async () => {
     try {
+      setDeleting(true);
       await axios.delete(`/api/issues/${id}`);
       router.push("/issues");
     } catch (error) {
+      setDeleting(false);
       setError(true);
     }
   };
@@ -22,7 +25,7 @@ const DeleteIssueButton = ({ id }: { id: string }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">
+          <Button color="red" loading={deleting}>
             <Link href={`/issues/${id}/edit`}>Delete Issue</Link>
           </Button>
         </AlertDialog.Trigger>
