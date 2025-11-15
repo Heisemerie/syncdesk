@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import IssueSchema, { IssueData } from "@/app/validationSchemas";
 import { ErrorMessage } from "@/app/components";
 import { Issue } from "@/app/generated/prisma";
-import { revalidatePath } from "next/cache";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
