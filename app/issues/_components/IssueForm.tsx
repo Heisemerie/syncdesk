@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import IssueSchema, { IssueData } from "@/app/validationSchemas";
 import { ErrorMessage } from "@/app/components";
 import { Issue } from "@/app/generated/prisma";
+import { revalidatePath } from "next/cache";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
@@ -36,8 +37,8 @@ const IssueForm = ({ issue }: Props) => {
       if (issue) {
         await axios.patch(`/api/issues/${issue.id}`, data);
       } else await axios.post("/api/issues", data);
-
       router.push("/issues");
+      revalidatePath("/issues");
     } catch (error) {
       setError("An unexpected error occurred");
     }
