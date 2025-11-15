@@ -71,7 +71,7 @@ const NavLinks = () => {
           <Link
             href={link.href}
             className={clsx("nav-link", {
-              "!text-zinc-50": link.href === currentPath,
+              "text-zinc-50!": link.href === currentPath,
             })}
           >
             {link.label}
