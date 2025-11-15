@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Box, Container, DropdownMenu, Flex } from "@radix-ui/themes";
+import { Avatar, Box, Container, DropdownMenu, Flex, Spinner } from "@radix-ui/themes";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ const NavBar = () => {
 const AuthStatus = () => {
   const { data: session, status } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Spinner/>;
 
   if (status === "unauthenticated")
     return <Link href={"/api/auth/signin"} className="nav-link">Sign in</Link>;
