@@ -1,19 +1,27 @@
 "use client";
-import { Avatar, Box, Container, DropdownMenu, Flex, Spinner } from "@radix-ui/themes";
+import Logo from "@/public/syncdeskLogo.png";
+import {
+  Avatar,
+  Box,
+  Container,
+  DropdownMenu,
+  Flex,
+  Spinner,
+} from "@radix-ui/themes";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ImBug } from "react-icons/im";
 
 const NavBar = () => {
   return (
-    <nav className="border-b mb-5 p-4">
+    <nav className="mb-2 p-6">
       <Container>
         <Flex justify={"between"}>
           <Flex align={"center"} gap={"3"}>
             <Link href={"/"}>
-              <ImBug />
+              <Image src={Logo} alt="logo" className="max-w-30" />
             </Link>
             <NavLinks />
           </Flex>
@@ -27,10 +35,14 @@ const NavBar = () => {
 const AuthStatus = () => {
   const { data: session, status } = useSession();
 
-  if (status === "loading") return <Spinner/>;
+  if (status === "loading") return <Spinner />;
 
   if (status === "unauthenticated")
-    return <Link href={"/api/auth/signin"} className="nav-link">Sign in</Link>;
+    return (
+      <Link href={"/api/auth/signin"} className="nav-link">
+        Sign in
+      </Link>
+    );
 
   return (
     <Box>
