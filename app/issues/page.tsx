@@ -1,10 +1,10 @@
 import prisma from "@/prisma/prisma";
 import IssueActions from "./IssueActions";
-import IssueTable from "./IssueTable";
+import IssueTable, { columns } from "./IssueTable";
 import { Issue, Status } from "../generated/prisma";
 
 interface Props {
-  searchParams: Promise<{ status: Status, orderBy: keyof Issue }>;
+  searchParams: Promise<{ status: Status; orderBy: keyof Issue }>;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -15,10 +15,17 @@ const IssuesPage = async ({ searchParams }: Props) => {
     ? searchparams.status
     : undefined;
 
+  const orderBy = columns
+    .map((column) => column.value)
+    .includes(searchparams.orderBy)
+    ? { [searchparams.orderBy]: "asc" }
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: {
       status: status,
     },
+    orderBy,
   });
 
   return (

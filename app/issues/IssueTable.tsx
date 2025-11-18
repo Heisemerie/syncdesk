@@ -9,12 +9,13 @@ interface Props {
   searchParams: { status: Status; orderBy: keyof Issue };
 }
 
+export const columns: { label: string; value: keyof Issue; className?: string }[] = [
+  { label: "Issue", value: "title" },
+  { label: "Status", value: "status", className: "hidden md:table-cell" },
+  { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
+];
+
 const IssueTable = async ({ issues, searchParams }: Props) => {
-  const columns: { label: string; value: keyof Issue; className?: string }[] = [
-    { label: "Issue", value: "title" },
-    { label: "Status", value: "status", className: "hidden md:table-cell" },
-    { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
-  ];
 
   return (
     <Table.Root variant="surface">
@@ -27,7 +28,9 @@ const IssueTable = async ({ issues, searchParams }: Props) => {
               >
                 {column.label}
               </NextLink>
-              {column.value === searchParams.orderBy && <ArrowUpIcon className="inline"/>}
+              {column.value === searchParams.orderBy && (
+                <ArrowUpIcon className="inline" />
+              )}
             </Table.ColumnHeaderCell>
           ))}
         </Table.Row>
