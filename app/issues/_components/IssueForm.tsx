@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { zodResolver } from "@hookform/resolvers/zod";
-import IssueSchema, { IssueData } from "@/app/validationSchemas";
+import { IssueSchema, IssueData } from "@/app/validationSchemas";
 import { ErrorMessage } from "@/app/components";
 import { Issue } from "@/app/generated/prisma";
 
