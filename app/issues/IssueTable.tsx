@@ -4,19 +4,28 @@ import { Link, IssueStatusBadge } from "../components";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 
-interface Props {
-  issues: Issue[];
-  searchParams: { status: Status; orderBy: keyof Issue };
+export interface IssueQuery {
+  status: Status;
+  orderBy: keyof Issue;
+  page: string;
 }
 
-export const columns: { label: string; value: keyof Issue; className?: string }[] = [
+interface Props {
+  issues: Issue[];
+  searchParams: IssueQuery;
+}
+
+export const columns: {
+  label: string;
+  value: keyof Issue;
+  className?: string;
+}[] = [
   { label: "Issue", value: "title" },
   { label: "Status", value: "status", className: "hidden md:table-cell" },
   { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
 ];
 
 const IssueTable = async ({ issues, searchParams }: Props) => {
-
   return (
     <Table.Root variant="surface">
       <Table.Header>
