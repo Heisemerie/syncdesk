@@ -7,6 +7,7 @@ import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
+import { is } from "zod/v4/locales";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -15,8 +16,15 @@ interface Props {
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await getServerSession(authOptions);
   const { id } = await params;
+
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(id) },
+  });
+
+  const users = await prisma.user.findMany({
+    orderBy: {
+      name: "asc",
+    },
   });
 
   if (!issue) notFound();
@@ -29,7 +37,7 @@ const IssueDetailPage = async ({ params }: Props) => {
       {session && (
         <Box>
           <Flex direction={"column"} gap={"4"}>
-            <AssigneeSelect />
+            <AssigneeSelect issue={issue} users={users} />
             <EditIssueButton id={id} />
             <DeleteIssueButton id={id} />
           </Flex>
