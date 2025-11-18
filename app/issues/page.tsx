@@ -1,28 +1,30 @@
 import prisma from "@/prisma/prisma";
 import IssueActions from "./IssueActions";
 import IssueTable from "./IssueTable";
-import { Status } from "../generated/prisma";
+import { Issue, Status } from "../generated/prisma";
 
 interface Props {
-  searchParams: Promise<{ status: Status }>;
+  searchParams: Promise<{ status: Status, orderBy: keyof Issue }>;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const { status } = await searchParams;
+  const searchparams = await searchParams;
 
   const statuses = Object.values(Status);
-  const validStatus = statuses.includes(status) ? status : undefined;
-  
+  const status = statuses.includes(searchparams.status)
+    ? searchparams.status
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: {
-      status: validStatus,
+      status: status,
     },
   });
 
   return (
     <div>
       <IssueActions />
-      <IssueTable issues={issues} />
+      <IssueTable issues={issues} searchParams={searchparams} />
     </div>
   );
 };
