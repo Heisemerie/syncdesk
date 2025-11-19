@@ -1,12 +1,11 @@
 import prisma from "@/prisma/prisma";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { IssueSchema, IssueData } from "../../validationSchemas";
-import { authOptions } from "../auth/authOptions";
+import { auth } from "@/auth.config";
+import { Session } from "next-auth";
 
-export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({}, { status: 401 });
+export const POST = auth(async (request: NextRequest & { auth: Session | null }) => {
+  if (!request.auth) return NextResponse.json({}, { status: 401 });
 
   const body: IssueData = await request.json();
 
@@ -19,4 +18,4 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json(newIssue, { status: 201 });
-}
+});

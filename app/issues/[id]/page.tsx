@@ -1,7 +1,6 @@
-import { authOptions } from "@/app/api/auth/authOptions";
 import prisma from "@/prisma/prisma";
 import { Box, Flex, Grid } from "@radix-ui/themes";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth.config";
 import { notFound } from "next/navigation";
 import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
@@ -13,7 +12,7 @@ interface Props {
 }
 
 const IssueDetailPage = async ({ params }: Props) => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const { id } = await params;
 
   const issue = await prisma.issue.findUnique({
