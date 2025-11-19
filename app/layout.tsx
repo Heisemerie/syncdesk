@@ -18,7 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Syncdesk",
+  title: {
+    template: "%s |  Syncdesk",
+    default: "Syncdesk",
+  },
   description: "Track issues right at your desk",
 };
 

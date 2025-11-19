@@ -24,6 +24,6 @@ export default async function Home() {
 }
 
 export const metadata: Metadata = {
-  title: "Syncdesk - Dashboard",
+  title: "Dashboard",
   description: "View a summary of project issues",
 };

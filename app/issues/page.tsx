@@ -51,7 +51,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
 };
 
 export const metadata: Metadata = {
-  title: "Syncdesk - Issue List",
+  title: "Issue List",
   description: "View all project issues",
 };
 
