@@ -1,5 +1,6 @@
 import prisma from "@/prisma/prisma";
-import { Box, Flex } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
+import { Metadata } from "next";
 import Pagination from "../components/Pagination";
 import { Status } from "../generated/prisma";
 import IssueActions from "./IssueActions";
@@ -47,6 +48,11 @@ const IssuesPage = async ({ searchParams }: Props) => {
       />
     </Flex>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Syncdesk - Issue List",
+  description: "View all project issues",
 };
 
 export default IssuesPage;
