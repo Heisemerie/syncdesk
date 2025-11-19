@@ -7,18 +7,25 @@ import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
 import { Metadata, ResolvingMetadata } from "next";
+import { cache } from "react";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({
+    where: {
+      id: issueId,
+    },
+  })
+);
+
 const IssueDetailPage = async ({ params }: Props) => {
   const session = await auth();
   const { id } = await params;
 
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
-  });
+  const issue = await fetchUser(parseInt((await params).id));
 
   const users = await prisma.user.findMany({
     orderBy: {
@@ -52,7 +59,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { id } = await params;
 
-  const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
+  const issue = await fetchUser(parseInt(id));
 
   return { title: issue?.title, description: `Details of issue ${issue?.id}` };
 }
