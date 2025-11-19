@@ -15,8 +15,10 @@ const AssigneeSelect = ({ issue, users }: Props) => {
       await axios.patch(`/api/issues/${issue.id}`, {
         assignedToUserId: userId === "unassigned" ? null : userId,
       });
-    } catch (error) {
-      toast.error("Changes could not be saved");
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(errorMessage);
     }
   };
 

@@ -48,23 +48,25 @@ export const PATCH = auth(
   }
 );
 
-export const DELETE = async (
-  request: NextRequest & { auth: Session | null },
-  { params }: { params: Promise<{ id: string }> }
-) => {
-  if (!request.auth) return NextResponse.json({}, { status: 401 });
+export const DELETE = auth(
+  async (
+    request: NextRequest & { auth: Session | null },
+    { params }: { params: Promise<{ id: string }> }
+  ) => {
+    if (!request.auth) return NextResponse.json({}, { status: 401 });
 
-  const { id } = await params;
+    const { id } = await params;
 
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
-  });
-  if (!issue)
-    return NextResponse.json({ error: "Invalid Issue" }, { status: 404 });
+    const issue = await prisma.issue.findUnique({
+      where: { id: parseInt(id) },
+    });
+    if (!issue)
+      return NextResponse.json({ error: "Invalid Issue" }, { status: 404 });
 
-  await prisma.issue.delete({
-    where: { id: issue.id },
-  });
+    await prisma.issue.delete({
+      where: { id: issue.id },
+    });
 
-  return NextResponse.json({});
-};
+    return NextResponse.json({});
+  }
+);
