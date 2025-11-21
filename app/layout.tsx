@@ -23,6 +23,15 @@ export const metadata: Metadata = {
     default: "Syncdesk",
   },
   description: "Track issues right at your desk",
+  applicationName: "Syncdesk",
+  keywords: ["Issues", "Tracking", "Management"],
+  openGraph: {
+    title: "Syncdesk",
+    description: "Track issues right at your desk",
+    url: "https://nextjs.org",
+    siteName: "Syncdesk",
+    images: "/opengraph-image.png",
+  },
 };
 
 export default function RootLayout({
