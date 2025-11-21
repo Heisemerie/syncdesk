@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import prisma from "@/prisma/prisma";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
@@ -5,6 +6,7 @@ import Pagination from "../components/Pagination";
 import { Status } from "../generated/prisma";
 import IssueActions from "./IssueActions";
 import IssueTable, { columns, IssueQuery } from "./IssueTable";
+import { connection } from "next/server";
 
 interface Props {
   searchParams: Promise<IssueQuery>;
@@ -36,6 +38,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
   });
 
   const issueCount = await prisma.issue.count({ where });
+  await connection();
 
   return (
     <Flex direction={"column"} gap={"3"}>
