@@ -1,16 +1,14 @@
 "use client";
-import { Button, Callout, TextField } from "@radix-ui/themes";
-import dynamic from "next/dynamic";
-import "easymde/dist/easymde.min.css";
-import { useForm, Controller } from "react-hook-form";
-import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { FaInfoCircle } from "react-icons/fa";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { IssueSchema, IssueData } from "@/app/validationSchemas";
 import { ErrorMessage } from "@/app/components";
 import { Issue } from "@/app/generated/prisma";
+import { IssueData, IssueSchema } from "@/app/validationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, TextField } from "@radix-ui/themes";
+import axios from "axios";
+import "easymde/dist/easymde.min.css";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
@@ -30,7 +28,6 @@ const IssueForm = ({ issue }: Props) => {
     resolver: zodResolver(IssueSchema),
   });
   const router = useRouter();
-  const [error, setError] = useState<string>();
 
   const onSubmit = async (data: IssueData) => {
     try {
@@ -47,15 +44,6 @@ const IssueForm = ({ issue }: Props) => {
 
   return (
     <div className="max-w-xl">
-      {error && (
-        <Callout.Root color="red" className="mb-5">
-          <Callout.Icon>
-            <FaInfoCircle />
-          </Callout.Icon>
-          <Callout.Text>{error}</Callout.Text>
-        </Callout.Root>
-      )}
-
       <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
         <TextField.Root
