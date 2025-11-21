@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import prisma from "@/prisma/prisma";
 import IssueSummary from "./IssueSummary";
 import LastestIssues from "./LastestIssues";
