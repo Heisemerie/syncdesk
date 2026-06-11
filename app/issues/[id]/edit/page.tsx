@@ -1,5 +1,5 @@
 import IssueForm from "../../_components/IssueForm";
-import prisma from "@/prisma/prisma";
+import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
 interface Props {

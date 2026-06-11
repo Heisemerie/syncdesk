@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import prisma from "@/prisma/prisma";
+import prisma from "@/lib/prisma";
 import IssueSummary from "./IssueSummary";
 import LastestIssues from "./LastestIssues";
 import IssueChart from "./IssueChart";

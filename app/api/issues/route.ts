@@ -1,7 +1,7 @@
-import prisma from "@/prisma/prisma";
+import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { IssueSchema, IssueData } from "../../validationSchemas";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { Session } from "next-auth";
 
 export const POST = auth(

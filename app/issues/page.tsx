@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import prisma from "@/prisma/prisma";
+import prisma from "@/lib/prisma";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
 import Pagination from "../components/Pagination";

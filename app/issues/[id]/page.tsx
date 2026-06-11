@@ -1,6 +1,6 @@
-import prisma from "@/prisma/prisma";
+import prisma from "@/lib/prisma";
 import { Box, Flex, Grid } from "@radix-ui/themes";
-import { auth } from "@/auth";
+import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
